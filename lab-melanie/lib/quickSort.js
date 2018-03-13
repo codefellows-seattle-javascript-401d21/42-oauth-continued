@@ -3,7 +3,7 @@
 // Vinicio - Optimized implementation in-place
 
 const quicksort = items => {
-  _quicksortHelper(items,0,items.length - 1);
+  _quicksortHelper(items, 0, items.length - 1);
 };
 
 const _quicksortHelper = (items,leftIndex,rightIndex) => {
@@ -17,7 +17,7 @@ const _quicksortHelper = (items,leftIndex,rightIndex) => {
 };
 
 const _partition = (items,leftIndex,rightIndex) => {
-  // TODO : Selecet a pivot / Create first High / Update Array
+  // TODO : Select a pivot / Create first High / Update Array
   let pivotIndex = rightIndex;
   let firstHighIndex = leftIndex;
 
@@ -41,5 +41,6 @@ const _swap = (items,indexA,indexB) => {
 };
 
 module.exports = quicksort;
+
 
 
