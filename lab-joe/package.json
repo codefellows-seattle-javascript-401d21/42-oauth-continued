@@ -1,0 +1,14 @@
+{
+  "name": "lab-joe",
+  "version": "1.0.0",
+  "description": "1 - Implement a stable version of Quick Sort This is a fairly common interview question",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^22.4.2"
+  }
+}
