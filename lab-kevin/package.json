@@ -1,0 +1,26 @@
+{
+  "name": "lab-kevin",
+  "version": "1.0.0",
+  "description": "lab 42- Sorting Algorithms - Implement Radix Sort.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "jest --verbose -i"
+  },
+  "keywords": [
+    "hash",
+    "table",
+    "linked",
+    "list",
+    "node"
+  ],
+  "author": "Kevin Miller",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.18.1",
+    "jest": "^22.4.2"
+  }
+}
