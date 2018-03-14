@@ -41,7 +41,7 @@ const merge = (items, start, mid, end) => {
     items[i] = temp[tempIdx];
     tempIdx++;
   }
-}
+};
 
 // Time: O(NlogN) where N is the number of items in array
 // Space: O(N) where N is the number of items in array
@@ -54,7 +54,7 @@ const _mergeSort = (items, left , right) => {
   _mergeSort(items, left, mid);
   _mergeSort(items, mid+1, right);
   merge(items, left, mid, right);
-}
+};
 
 const mergeSort = items => {
   if(!Array.isArray(items)){
@@ -63,7 +63,7 @@ const mergeSort = items => {
   if(items.length === 0){
     return;
   }
-  _mergeSort(items, 0, items.length-1)
-}
+  _mergeSort(items, 0, items.length-1);
+};
 
 module.exports = mergeSort;
