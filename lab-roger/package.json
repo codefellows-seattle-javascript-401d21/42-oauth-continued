@@ -1,0 +1,15 @@
+{
+  "name": "lab-roger",
+  "version": "1.0.0",
+  "description": "Write a merged sort that does not just return a copy of the sorted array but returns the array itself.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest -i "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^22.4.2"
+  }
+}
