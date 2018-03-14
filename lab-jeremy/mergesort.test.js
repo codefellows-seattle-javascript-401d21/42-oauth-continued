@@ -1,19 +1,35 @@
 'use strict';
 
-const mergesort = require('../mergesort');
+const mergeSort = require('./mergesort');
 require('jest');
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
+describe('Merge Sort Algorithm', function() {
+  let numericArray = [8, 7, 5, 4, 3, 6, 1];
 
-let randomNum = getRandomInt(100);
-
-let N = Array.from({length: randomNum}, getRandomInt(randomNum));
-
-describe(`#Array of ${randomNum} random integers from 0 to ${randomNum}`, function() {
-  it(`Should return an array of ${randomNum} numbers`, function() {
-    expect(N.length).toEqual(randomNum);
+  describe('Valid Arguments', () => {
+    it('should return an array', () => {
+      expect(mergeSort(numericArray)).toBeInstanceOf(Array);
+    });
+    it('should return a sorted array', () => {
+      let sortedArray = numericArray.sort((a, b) => a - b);
+      expect(mergeSort(numericArray)).toEqual(sortedArray);
+    });
+    it('should not be the same order as the original array', () => {
+      expect(mergeSort(numericArray)).not.toEqual([8, 7, 5, 4, 3, 6, 1]);
+    });
+    it('should return the original array if it contains only one element', () => {
+      expect(mergeSort([1])).toEqual([1]);
+    });
+  });
+  describe('Invalid Arguments', () => {
+    it('should return null if no argument is passed', () => {
+      expect(mergeSort()).toBeNull();
+    });
+    it('should return null if argument is not an array', () => {
+      expect(mergeSort(1)).toBeNull();
+    });
+    it('should return the array if anything less 2 elements', () => {
+      expect(mergeSort([])).toEqual([]);
+    });
   });
 });
-

@@ -1,6 +1,9 @@
 'use strict';
 
 const mergeSort = items => {
+  if (!items) return null;
+  if (!Array.isArray(items)) return null;
+
   if(items.length < 2)
     return items;
 
