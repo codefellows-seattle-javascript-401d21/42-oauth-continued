@@ -34,4 +34,7 @@ describe('radix sort', () => {
   it('large array', () => {
     expect(sorted(radix(randomArray(1000)))).toEqual(true);
   })
+  it('very large array', () => {
+    expect(sorted(radix(randomArray(10000)))).toEqual(true);
+  })
 })
