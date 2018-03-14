@@ -1,0 +1,18 @@
+{
+  "name": "42-sorting-algorithms",
+  "version": "1.0.0",
+  "description": "mergeSort and quicksort",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "author": "Karen Perez",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.18.2",
+    "jest": "^22.4.2"
+  }
+}
