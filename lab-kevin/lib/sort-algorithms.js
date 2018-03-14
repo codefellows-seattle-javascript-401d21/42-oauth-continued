@@ -12,7 +12,15 @@ sort_algorithms.radixSort = itemArray => {
   //return arrays that have less than two items  
   if (itemArray.length < 2) return itemArray;
 
-
+  //return arrays that have less than two items  
+  if (itemArray.length === 2){
+    if (itemArray[0] < itemArray[1] ) return itemArray;
+    let temp = itemArray[0];
+    itemArray[0] = itemArray[1];
+    itemArray[1] = temp;
+    return itemArray;
+  } 
+  
   let digitArray;
   let sorted = false;
   //initial base - ones place
