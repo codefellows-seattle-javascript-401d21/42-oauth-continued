@@ -2,7 +2,6 @@
 
 const mergeSort = items => {
 
-  // TODO: finish validation
   if (!items || !Array.isArray(items)) return null;
   if(items.length < 2) return items;
 
@@ -14,11 +13,7 @@ const mergeSort = items => {
   const leftSide = mergeSort(items.slice(0, middlePoint));
   const rightSide = mergeSort(items.slice(middlePoint));
 
-
-
-  while(items.length > 0) {
-    items.pop();
-  }
+  items = [];
 
   while(leftSide.length || rightSide.length) {
     if(leftSide.length && !rightSide.length) {
