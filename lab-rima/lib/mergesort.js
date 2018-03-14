@@ -5,6 +5,7 @@ const merge = (items, start, mid, end) => {
   let rightStart = mid+1;
   let temp = [];
   let tempIdx = 0;
+
   // left side/right side have some items
   while(leftStart <= mid && rightStart <= end){
     if(items[leftStart] <= items[rightStart]){
@@ -34,7 +35,7 @@ const merge = (items, start, mid, end) => {
     }
   }
 
-  // modify original array
+  // mutate original array
   tempIdx = 0;
   for(let i = start; i <= end; i++){
     items[i] = temp[tempIdx];
@@ -42,6 +43,8 @@ const merge = (items, start, mid, end) => {
   }
 }
 
+// Time: O(NlogN) where N is the number of items in array
+// Space: O(N) where N is the number of items in array
 const mergeSort = (items, left , right) => {
   if(!Array.isArray(items)){
     throw new Error('Input needs to be an array');
