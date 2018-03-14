@@ -18,7 +18,7 @@
 //         return numbers
 //
 //     maxval = max(array)
-// 
+//
 //     it = 0
 //     # Iterate, sorting the array by each base-digit
 //     while base ** it <= maxval:
@@ -27,12 +27,12 @@
 //
 //     return array
 
-const redix_sort = module.exports = (arr, base=10) => {
-  let maxVal = math.max(arr);
+const radix_sort = module.exports = (arr, base=10) => {
+  let maxVal = Math.max(...arr);
 
   let iteration = 0;
 
-  while (base * iteration <= maxVal) {
+  while (base ** iteration <= maxVal) {
     arr = buckets_to_list(list_to_buckets(arr, base, iteration));
     iteration++;
   }
@@ -40,20 +40,23 @@ const redix_sort = module.exports = (arr, base=10) => {
 }
 
 const list_to_buckets = (arr, base, iteration) => {
+  console.log('in list_to_buckets');
   let buckets = [];
   for (let i = 0; i < base; i++, buckets.push([]));
-  for (let number in arr) {
-    let digit = (number / (base * iteration)) % base;
-    buckets[digit].push(number);
+  for (let i = 0; i < arr.length; i++) {
+    let digit = Math.floor(arr[i] / (base ** iteration)) % base;
+    buckets[digit].push(arr[i]);
+    console.log('buckets:', buckets);
   }
   return buckets;
 }
 
 const buckets_to_list = (buckets) => {
+  console.log('in buckets_to_list');
   let numbers = [];
-  for (let bucket in buckets) {
-    for (let number in bucket) {
-      numbers.push(number);
+  for (let i = 0; i < buckets.length; i++) {
+    for (let j = 0; j < buckets[i].length; j++) {
+      numbers.push(buckets[i][j]);
     }
   }
   return numbers;
