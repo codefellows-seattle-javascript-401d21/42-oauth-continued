@@ -5,7 +5,7 @@ const radix = require('../lib/radix-sort.js');
 let randomArray = n => {
   let result = [];
   for (let i = 0; i < n; i++) {
-    let number = Math.floor(Math.random() * (100 - 1) + 1);
+    let number = ~~(Math.random() * (1e4 - 1) + 1);
     result.push(number)
   }
   return result;
@@ -23,18 +23,18 @@ describe('radix sort', () => {
     expect(sorted(radix(randomArray(0)))).toEqual(true);
   })
   it('single element array', () => {
-    expect(sorted(radix(randomArray(1)))).toEqual(true);
+    expect(sorted(radix(randomArray(1e0)))).toEqual(true);
   })
   it('small array', () => {
-    expect(sorted(radix(randomArray(10)))).toEqual(true);
+    expect(sorted(radix(randomArray(1e1)))).toEqual(true);
   })
   it('medium array', () => {
-    expect(sorted(radix(randomArray(100)))).toEqual(true);
+    expect(sorted(radix(randomArray(1e2)))).toEqual(true);
   })
   it('large array', () => {
-    expect(sorted(radix(randomArray(1000)))).toEqual(true);
+    expect(sorted(radix(randomArray(1e3)))).toEqual(true);
   })
   it('very large array', () => {
-    expect(sorted(radix(randomArray(10000)))).toEqual(true);
+    expect(sorted(radix(randomArray(1e4)))).toEqual(true);
   })
 })
