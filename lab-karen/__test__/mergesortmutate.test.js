@@ -7,12 +7,23 @@ describe('Merge Sort with copy', () => {
   let testArray = [7, 2, 9, 12, 26, 1];
   let sortedArray = [1, 2, 7, 9, 12, 26];
 
+  let randomArr = Array.apply(null, Array(1000)).map(function(item, index){
+    return Math.floor(Math.random() * 9);
+  });
+  let sortedRandArray = randomArr.sort((a, b) => a - b);
+
   describe('Valid output', () => {
     it('should return an array', () => {
       expect(mergeSortMutate(testArray)).toBeInstanceOf(Array);
     });
     it('should return a sorted array', () => {
       expect(mergeSortMutate(testArray)).toEqual(sortedArray);
+    });
+    it('should the same array if input is single item array ', () => {
+      expect(mergeSortMutate([3])).toEqual([3]);
+    });
+    it('should return a sorted array with a large array input', () => {
+      expect(mergeSortMutate(randomArr)).toEqual(sortedRandArray);
     });
   });
 
@@ -27,5 +38,4 @@ describe('Merge Sort with copy', () => {
       expect(mergeSortMutate([])).toEqual('Array cannot be empty');
     });
   });
-
 });
