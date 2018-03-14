@@ -43,9 +43,16 @@ const merge = (items, start, mid, end) => {
 }
 
 const mergeSort = (items, left , right) => {
-  if(items === null){
-    return null;
+  if(!Array.isArray(items)){
+    throw new Error('Input needs to be an array');
   }
+  if(typeof left !== 'number' || typeof right !== 'number'){
+    throw new Error('Index for left or right needs to be a number');
+  }
+  if(left < 0 || right < 0){
+    throw new Error('Index for left or right needs to be 0 or positive');
+  }
+
   if(left === right){
     return items;
   }
