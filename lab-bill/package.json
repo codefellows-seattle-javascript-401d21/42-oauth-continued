@@ -1,0 +1,16 @@
+{
+  "name": "lab-bill",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^4.18.2",
+    "jest": "^22.4.2"
+  }
+}
