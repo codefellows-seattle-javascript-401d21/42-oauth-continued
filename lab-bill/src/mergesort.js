@@ -3,13 +3,11 @@
 const mergeSort = items => {
   let output = [];
   if(items.length < 2)
-    return items;
+      return items;
 
   if(items.length === 2){
-    let x = items[0];
-    items[0] = items[1];
-    items[1] = x ;
-    return items;
+    // Vinicio - Extra memory!
+    return items[0] < items[1] ? items : items.reverse();
   }
 
   const middlePoint = Math.floor(items.length / 2);
