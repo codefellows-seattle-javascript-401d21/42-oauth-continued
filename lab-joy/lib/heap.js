@@ -1,12 +1,4 @@
-/*
-HEAP DATA STRUCTURE
-In our heap data structure, we have a complete binary tree where numbers are sorted in descending order - the value of all child nodes are less than the value of its parent. 
-* Delete:
-    1. Remove the root
-    2. Move the number at the end of the line (bottom and then right-most node) to the top. It's now the root.
-    3. Check the child numbers - if one is lower, the lowest one swaps with the root/parent.
-    4. Recursively check the children and if they're lower, swap the lowest one with the parent.
-*/
+/* HEAP DATA STRUCTURE - So I read up on what a heap is supposed to do and decided to try to implement one without referencing existing implementations. In our heap data structure, we have a complete binary tree where numbers are sorted in descending order - the value of all child nodes are less than the value of its parent. */
 
 'use strict';
 
@@ -23,81 +15,109 @@ module.exports = class Heap {
     this.root = null;
   }
 
-  /*
-  Insert:
-    1. Number to be added is inserted at the end of the line (bottom and then right-most node of the tree)
-    2. If parent is smaller than number, swap parent and number (child).
-    3. Recursively keep doing this until the parent is not smaller than the number.
-  */ 
   insert(value) {
     let node = new Node(value);
-    // insert the node into the tree and save the parent node
-    // do we need to save the parent? what if we just insert and then we DFS traverse again to save the path? 
-    let parent = this._insertEnd(node);
-    this._insertSwap(node, parent);
+    if (!this.root) {
+      this.root = node;
+      return;
+    }
+    // inserts a new node at the end of our tree and tracks parents
+    let list = this._insertEnd(node);
+    // swaps values around so that the heap is still in descending order
+    this._insertSwap(list);
     return this;
-    // vv make this into a swap helper function
   }
 
   _insertEnd(node) {
-    let parent = null;
-    // If the max and min height of each leaf node in the tree is the same, find the bottom left node and insert our node as its left child.
-    if (this._findMaxHeight() === this._findMinHeight()) {
-      parent = this._findBottomLeft();
-      parent.left = node;
-    }
-    // If the max and minimum heights differ, find the rightmost node in tree. If this node has a left child, insert our node as the right child. Otherwise, it doesn't have any children, so insert our node as the left child.
-    else {
-      parent = this._findRight();
-      if (parent.left) parent.right = node;
-      else parent.left = node;
-    }
-    return parent;
-  }
-
-  _insertSwap(node, parent) {
-    // if (parent.value < node.value) {
-    //   let temp = parent.value;
-    //   parent.value = node.value;
-    //   node.value = temp;
-    // }
-  }
-
-  // Root is level 1
-  _findMaxHeight(node = this.root) {
-    if (!node) return null;
-    return 1 + Math.max(this._findMaxHeight(node.right), this._findMaxHeight(node.left));
-  }
-
-  _findMinHeight(node = this.root) {
-    if (!node) return null;
-    return 1 + Math.min(this._findMinHeight(node.right), this._findMinHeight(node.left));
-  }
-
-  _findBottomLeft(node = this.root) {
-    if (!node.left) return node;
-    else return this._findBottomLeft(node.left);
-  }
- 
-  _findRight() {
-    let q = [this.root];
+    // uses breadth first traversal to find the bottom level and then right-most node without two children; tracks the path to the node via a linked list; inserts our node as a child of this node.
+    // O(n) time complexity where n is the number of nodes, as hits the entire tree once. O(n) space complexity where n is the number of nodes, as we are building a new linked list node for each tree node.
+    let q = [{ 'node': this.root, 'parent': null }];
     while (q.length) {
-      let node = q.shift();
-      if (!node.left || !node.right) return node;
-      node.push(q.left, q.right);
+      let current = q.shift();
+      if (!current.node.left) {
+        current.node.left = node;
+        return { 'node': node, 'parent': current };
+      }
+      if (!current.node.right) {
+        current.node.right = node;
+        return { 'node': node, 'parent': current };
+      }
+      q.push({ 'node': current.node.left, 'parent': current }, { 'node': current.node.right, 'parent': current });
     }
+    // if all nodes have two children, that means we need to start a new level at the left-most node in the tree. We use depth first traversal to find this node, track parents in a linked list, and insert our node as the left child of this node.
+    return this._findBottomLeft(node);
+  }
+
+  _findBottomLeft(node, current = { 'node': this.root, 'parent': null }) {
+    // O(log n) space complexity as we are only checking the leftmost child of each node; it becomes O(n) if the linked list is entirely linear with left children. O(n) space complexity as we are creating a new linked list node for each node traversed.
+    if (!current.node.left) {
+      current.node.left = node;
+      return { 'node': node, 'parent': current };
+    }
+    else return this._findBottomLeft(node, { 'node': current.node.left, 'parent': current });
+  }
+
+  _insertSwap(current) {
+    // Input node is a linked list with "node" key containing the current node, and a "parent" key linking to the node's parent. We iterate through the list from the bottom node up to the root, comparing the node's value to its parent's value. If the parent's value is smaller than the node's value, we swap the values.
+    // O(n) time complexity where n are the nodes in the linked list.
+    while (current) {
+      if (current.parent === null) return;
+      if (current.node.value <= current.parent.node.value) return; 
+      let temp = current.node.value;
+      current.node.value = current.parent.node.value;
+      current.parent.node.value = temp;
+      current = current.parent;
+    }
+  }
+
+  remove() {
+    if (!this.root) return null;
+    let value = this.root.value;
+    if (!this.root.left && !this.root.right) {
+      this.root = null;
+      return value;
+    }
+    // Find the end node, swap its value with the root's value, and delete it.
+    this._deleteRoot();
+    // Now we check the root's new value against its children's values. If the highest child's value is higher than the root's value, we swap the values.
+    this._removeSwap();
+    // returns the removed node's (previous root's) value
+    return value;
   }
   
-  _findEnd() {
-    // We will utilize a breadth first search with a queue. The last node that we shift will be the rightmost node at the bottom level of the tree. This is in O(n) time where n is the number of nodes, as it hits each node once.
-    if (!this.root) return null;
-    let q = [this.root], end;
+  _deleteRoot() {
+    // We will utilize a breadth first search with a queue. The last node that we shift will be an object containing the rightmost node at the bottom level of the tree and its parent. This is in O(n) time where n is the number of nodes, as it hits each node once. 
+    let q = [{'node': this.root, 'parent': null}], end;
     while (q.length) {
       end = q.shift();
-      if (end.left) q.push(end.left);
-      if (end.right) q.push(end.right);
+      if (end.node.left) q.push({'node': end.node.left, 'parent': end.node});
+      if (end.node.right) q.push({'node': end.node.right, 'parent': end.node});
     }
-    return end;
+    // We assign the root's value to be the end node's value
+    this.root.value = end.node.value;
+    // Then we delete the end node
+    if (end.node === end.parent.left) end.parent.left = null;
+    else if (end.node === end.parent.right) end.parent.right = null;
   }
 
+  _removeSwap(current = this.root) {
+    // checks root's child nodes. If the max child node's value is higher than the root's value, swap the values and continue following the root's value down the tree until a swap does not need to be made. This is O(log n) where n is the number of nodes as we are only traversing one child of the node at most, although it can become O(n) if the tree is completely linear.
+    if (current.left && current.right) {
+      let maxChild = current.left.value > current.right.value ? current.left : current.right;
+      if (maxChild.value > current.value) {
+        let temp = current.value;
+        current.value = maxChild.value;
+        maxChild.value = temp;
+        this._removeSwap(maxChild);
+      }
+    }
+    else if (current.left) {
+      if (current.left.value > current.value) {
+        let temp = current.value;
+        current.value = current.left.value;
+        current.left.value = temp;
+        this._removeSwap(current.left);
+      }
+    }
+  }
 };
