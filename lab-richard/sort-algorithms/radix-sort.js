@@ -3,25 +3,12 @@
 const sort = module.exports = {};
     
 sort.radix = function(items){
-    // These are my buckets. 
-    // There are many buckets like them, 
-    // but these buckets are mine.
-    
-    let zero = [];
-    let one = [];
-    let two = [];
-    let three = [];
-    let four = [];
-    let five = [];
-    let six = [];
-    let seven = [];
-    let eight = [];
-    let nine = [];
-    
+    // These are my buckets. There are many buckets like them, but these buckets are mine.
+    let zero = [], one = [], two = [], three = [], four = [], five = [], six = [], seven = [], eight = [], nine = [];
     let buckets = [zero, one, two, three, four, five, six, seven, eight, nine]
 
-    // What is the largest number in items?
-    let max = Math.max.apply(null, items);
+    // What is the largest value in items?
+    let max = Math.max(...items);
     
     // Function counts the total number of digits per item
     function numberOfDigits(num) {
@@ -57,9 +44,9 @@ sort.radix = function(items){
     }
     
     // This next part figures out what buckets the items
-    // go into and then rearranges them after each iteration.
-    // It does this the for the length of each item which
-    // is how the radix sort algorithm works.
+    // go into and then rearranges them after the iteration.
+    // It reiterates a number equal to the length of each value, 
+    // which is how the radix sort algorithm works.
     for(let y = 0 ; y < numberOfTimesFillingBuckets ; y++){
         highest = highest - 1;
         for(let a = 0 ; a < buckets.length ; a++) {
