@@ -19,7 +19,7 @@ module.exports = class Heap {
     let node = new Node(value);
     if (!this.root) {
       this.root = node;
-      return;
+      return this;
     }
     // inserts a new node at the end of our tree and tracks parents
     let list = this._insertEnd(node);
@@ -49,7 +49,7 @@ module.exports = class Heap {
   }
 
   _findBottomLeft(node, current = { 'node': this.root, 'parent': null }) {
-    // O(log n) space complexity as we are only checking the leftmost child of each node; it becomes O(n) if the linked list is entirely linear with left children. O(n) space complexity as we are creating a new linked list node for each node traversed.
+    // O(log n) space complexity as we are only checking the leftmost child of each node; it becomes O(n) if the tree is entirely linear with left children. O(n) space complexity as we are creating a new linked list node for each node traversed.
     if (!current.node.left) {
       current.node.left = node;
       return { 'node': node, 'parent': current };
