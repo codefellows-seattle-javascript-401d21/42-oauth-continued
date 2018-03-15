@@ -8,7 +8,7 @@ Heaps are binary trees where the numbers are sorted in ascending (or descending,
     1. Number to be added is placed at the end of the line (bottom and then right-most node of the tree)
     2. If parent is greater than number, swap parent and number (child).
     3. Recursively keep doing this until the parent is not greater than the number.
-* Pseudo Delete:
+* Pseudo Remove:
     1. Remove the root
     2. Move the number at the end of the line (bottom and then right-most node) to the top. It's now the root.
     3. Check the child numbers - if one is lower, the lowest one swaps with the root/parent. 
