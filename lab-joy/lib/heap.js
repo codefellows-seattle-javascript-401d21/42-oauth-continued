@@ -10,7 +10,7 @@ class Node {
   }
 }
 
-class Heap {
+module.exports = class Heap {
   constructor() {
     this.root = null;
   }
@@ -70,11 +70,6 @@ class Heap {
     }
   }
 
-  // * Pseudo Remove:
-  // 1. Remove the root
-  // 2. Move the number at the end of the line(bottom and then right - most node) to the top.It's now the root.
-  // 3. Check the child numbers - if one is highest, the highest one swaps with the root / parent. 
-  // 4. Recursively check the children and if they're highest, swap the highest one with the parent. 
   remove() {
     if (!this.root) return null;
     let value = this.root.value;
@@ -106,6 +101,7 @@ class Heap {
   }
 
   _removeSwap(current = this.root) {
+    // checks root's child nodes. If the max child node's value is higher than the root's value, swap the values and continue following the root's value down the tree until a swap does not need to be made. This is O(log n) where n is the number of nodes as we are only traversing one child of the node at most, although it can become O(n) if the tree is completely linear.
     if (current.left && current.right) {
       let maxChild = current.left.value > current.right.value ? current.left : current.right;
       if (maxChild.value > current.value) {
@@ -124,16 +120,4 @@ class Heap {
       }
     }
   }
-}
-
-let heap = new Heap();
-heap.insert(1);
-heap.insert(2);
-heap.insert(7);
-heap.insert(3);
-heap.insert(4);
-heap.insert(6);
-heap.insert(5);
-
-let arr = [];
-while(heap.root) arr.unshift(heap.remove());
+};
