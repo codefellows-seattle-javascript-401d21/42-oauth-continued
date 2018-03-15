@@ -1,6 +1,4 @@
 
-/* HEAP SORT - The heap sort uses the heap data structure that I constructed and takes in an array of numbers. It returns the same array with the numbers sorted in ascending order. Big O complexity is analyzed in heap.js. */
-
 'use strict';
 let Heap = require('./heap');
 

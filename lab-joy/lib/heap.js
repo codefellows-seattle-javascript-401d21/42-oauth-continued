@@ -1,4 +1,4 @@
-/* HEAP DATA STRUCTURE - So I read up on what a heap is supposed to do and decided to try to implement one without referencing existing implementations. In our heap data structure, we have a complete binary tree where numbers are sorted in descending order - the value of all child nodes are less than the value of its parent. */
+/* HEAP DATA STRUCTURE - Our heap is a complete binary tree where numbers are sorted in descending order - the value of all child nodes are less than the value of its parent. */
 
 'use strict';
 
